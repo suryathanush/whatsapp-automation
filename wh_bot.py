@@ -1,19 +1,14 @@
 from selenium import webdriver
 import time
-from datetime import datetime
-from selenium.webdriver.support.color import Color
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import NoSuchElementException
 import gspread
 import urllib
-import datetime
-#driver = webdriver.Firefox(executable_path='/home/suryathanush/bot/geckodriver')
 
 options = webdriver.ChromeOptions()
 options.add_argument("user-data-dir=Home/bot/.config/chromium/Profile 1")
 
-gc = gspread.service_account(filename= "/home/suryathanush/inventech/api_credentials.json")
-sheet = gc.open_by_key('1jkX18IBdVSpAAfHHlO8LyzRIBd_3vKRNk-lQVI_EVX0').worksheet("Sheet2")
+gc = gspread.service_account(filename= "<Google sheets credential.json file>")
+sheet = gc.open_by_key('gogle sheet key from url').worksheet("Sheet number")
 row = 1
 link = "https://web.whatsapp.com/send?phone=%s&text=%s"
 def string(data):
@@ -26,25 +21,21 @@ def string(data):
         i+=1
     return data1 
 
-with open('/home/suryathanush/Desktop/msg.txt', 'r') as f:
+with open('<message.txt file>', 'r') as f:
     msg = f.read()
 while(1):
-    if row==234:
+    if row== #<max row count in sheet>:
         break
     time.sleep(1)
-    print(row)
     try:
-        print("***")
         ph_no = "+91" + string(sheet.cell(row,4).value)
-        print("&&&&&&")
         name = string(sheet.cell(row,2).value)
-        print("###")
         msg1 = "*hello " + name + "*" + "\r\n" + msg
         print(ph_no)
         ack_url = urllib.parse.quote(msg1, safe='')
         url = link%(ph_no, ack_url)
         try:
-            driver = webdriver.Chrome(executable_path='/home/suryathanush/bot/chromedriver',options=options)
+            driver = webdriver.Chrome(executable_path='<chrome driver file path>',options=options)
             driver.get(url)
             date1 = datetime.datetime.today()
             while(True):
@@ -62,7 +53,7 @@ while(1):
                     while(1):
                         try:
                             sheet.update_cell(row,6, "pdf")
-                            with open('/home/suryathanush/Desktop/count.txt', 'w') as f:
+                            with open('<txt file to save the updated count>', 'w') as f:
                                 f.write(str(row))
                             row+=1
                             break
