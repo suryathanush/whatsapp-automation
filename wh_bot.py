@@ -5,7 +5,7 @@ import gspread
 import urllib
 
 options = webdriver.ChromeOptions()
-options.add_argument("user-data-dir=Home/bot/.config/chromium/Profile 1")
+options.add_argument("user-data-dir=<any empty directory to store user's data of browser>")
 
 gc = gspread.service_account(filename= "<Google sheets credential.json file>")
 sheet = gc.open_by_key('gogle sheet key from url').worksheet("Sheet number")
